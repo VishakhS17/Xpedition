@@ -1,0 +1,17 @@
+Account ID:
+a80546384ca07d3c288c1d4fea98d256
+
+R2 Access Key:
+aaea41d1c2fcfe0bbb3add128d604883
+
+R2 Secret Access Key:
+92114002ac851987e59e47e93b77f44e6f0f15a637519f0d12d12f7b7f2609ec
+
+Bucket Name:
+xpeditiondevbucket
+
+Endpoint:
+https://a80546384ca07d3c288c1d4fea98d256.r2.cloudflarestorage.com
+
+R2 Public URL:
+https://pub-33f7dbdc4bb044af87f8b245a139c87f.r2.dev
