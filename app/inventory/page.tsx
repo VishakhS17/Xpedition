@@ -16,7 +16,7 @@ interface Bike {
   kms: string;
   regState: string;
   brand?: string;
-  status?: string;
+  status?: 'available' | 'sold' | 'reserved' | 'pending';
   category?: string[];
 }
 
