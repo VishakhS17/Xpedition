@@ -4,6 +4,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ImageGallery from "@/components/ImageGallery";
 import { formatPrice } from "@/lib/formatPrice";
+import { sql } from "@/lib/db";
 
 interface BikeDetailPageProps {
   params: Promise<{ id: string }>;
@@ -32,40 +33,55 @@ interface Bike {
 
 async function getBikeById(id: number): Promise<Bike | null> {
   try {
-    // Use absolute URL for server-side fetch
-    const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
-    
-    // Create timeout controller for request timeout
-    const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 15000); // 15 second timeout
-    
-    try {
-      const response = await fetch(`${baseUrl}/api/bikes/${id}`, {
-        // Use revalidate for ISR - cache for 60 seconds, then revalidate in background
-        next: { revalidate: 60 },
-        signal: controller.signal,
-      });
+    // Directly query the database instead of making HTTP request
+    const bikes = await sql`
+      SELECT 
+        id, image, images, price, model, brand, category,
+        reg_year, kms, reg_state, color, fuel_type, engine,
+        description, features, condition, owner, contact,
+        status, sold_at, created_at, updated_at
+      FROM bikes 
+      WHERE id = ${id}
+      LIMIT 1
+    `;
 
-      clearTimeout(timeoutId);
-
-      if (!response.ok) {
-        return null;
-      }
-
-      const data = await response.json();
-      return data.bike || null;
-    } catch (fetchError: any) {
-      clearTimeout(timeoutId);
-      if (fetchError.name === 'AbortError') {
-        console.error('Request timeout: Database connection took too long');
-      }
-      throw fetchError;
+    if (bikes.length === 0) {
+      return null;
     }
+
+    const bike = bikes[0];
+
+    // Format bike data to match interface
+    const formattedBike: Bike = {
+      id: bike.id,
+      image: bike.image,
+      images: bike.images || [],
+      price: bike.price,
+      model: bike.model,
+      brand: bike.brand,
+      regYear: bike.reg_year,
+      kms: bike.kms,
+      regState: bike.reg_state,
+      color: bike.color,
+      fuelType: bike.fuel_type,
+      engine: bike.engine,
+      description: bike.description,
+      features: bike.features || [],
+      condition: bike.condition,
+      owner: bike.owner,
+      contact: bike.contact,
+      status: bike.status || 'available',
+    };
+
+    return formattedBike;
   } catch (error) {
     console.error('Error fetching bike:', error);
     return null;
   }
 }
+
+// Revalidate every 60 seconds for ISR
+export const revalidate = 60;
 
 export async function generateMetadata({ params }: BikeDetailPageProps) {
   const { id } = await params;
