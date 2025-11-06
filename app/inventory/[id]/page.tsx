@@ -33,6 +33,12 @@ interface Bike {
 
 async function getBikeById(id: number): Promise<Bike | null> {
   try {
+    // Validate ID
+    if (!id || isNaN(id) || id <= 0) {
+      console.error('Invalid bike ID:', id);
+      return null;
+    }
+
     // Directly query the database instead of making HTTP request
     const bikes = await sql`
       SELECT 
@@ -46,6 +52,7 @@ async function getBikeById(id: number): Promise<Bike | null> {
     `;
 
     if (bikes.length === 0) {
+      console.log(`Bike with ID ${id} not found in database`);
       return null;
     }
 
@@ -55,27 +62,32 @@ async function getBikeById(id: number): Promise<Bike | null> {
     const formattedBike: Bike = {
       id: bike.id,
       image: bike.image,
-      images: bike.images || [],
+      images: Array.isArray(bike.images) ? bike.images : (bike.images ? [bike.images] : []),
       price: bike.price,
       model: bike.model,
       brand: bike.brand,
       regYear: bike.reg_year,
       kms: bike.kms,
       regState: bike.reg_state,
-      color: bike.color,
-      fuelType: bike.fuel_type,
-      engine: bike.engine,
-      description: bike.description,
-      features: bike.features || [],
-      condition: bike.condition,
-      owner: bike.owner,
-      contact: bike.contact,
+      color: bike.color || undefined,
+      fuelType: bike.fuel_type || undefined,
+      engine: bike.engine || undefined,
+      description: bike.description || undefined,
+      features: Array.isArray(bike.features) ? bike.features : (bike.features ? [bike.features] : []),
+      condition: bike.condition || undefined,
+      owner: bike.owner || undefined,
+      contact: bike.contact || undefined,
       status: bike.status || 'available',
     };
 
     return formattedBike;
   } catch (error) {
     console.error('Error fetching bike:', error);
+    // Log more details about the error
+    if (error instanceof Error) {
+      console.error('Error message:', error.message);
+      console.error('Error stack:', error.stack);
+    }
     return null;
   }
 }
