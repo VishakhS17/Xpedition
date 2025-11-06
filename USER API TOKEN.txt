@@ -1,5 +1,0 @@
-4evr9kKYPXC8PPx09meqcpvSf-yesGbp6pYAzS5c
-
-curl "https://api.cloudflare.com/client/v4/user/tokens/verify" \
--H "Authorization: Bearer 4evr9kKYPXC8PPx09meqcpvSf-yesGbp6pYAzS5c"
-
