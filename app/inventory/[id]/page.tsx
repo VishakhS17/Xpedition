@@ -135,6 +135,7 @@ export default async function BikeDetailPage({ params }: BikeDetailPageProps) {
               <span>/</span>
               <Link
                 href="/inventory"
+                scroll={false}
                 className="hover:text-primary-red transition-colors"
               >
                 Inventory
@@ -294,6 +295,7 @@ export default async function BikeDetailPage({ params }: BikeDetailPageProps) {
                     </p>
                     <Link
                       href="/inventory"
+                      scroll={false}
                       className="inline-block bg-white text-gray-800 font-bold py-3 px-6 rounded-lg hover:bg-gray-100 transition-colors"
                     >
                       View Other Bikes
@@ -353,6 +355,7 @@ export default async function BikeDetailPage({ params }: BikeDetailPageProps) {
               {/* Back to Inventory */}
               <Link
                 href="/inventory"
+                scroll={false}
                 className="inline-flex items-center text-primary-red hover:text-primary-red-dark font-semibold transition-colors"
               >
                 ← Back to Inventory

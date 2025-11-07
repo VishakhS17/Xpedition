@@ -21,7 +21,7 @@ interface BikeCardProps {
 
 export default function BikeCard({ bike }: BikeCardProps) {
   return (
-    <Link href={`/inventory/${bike.id}`}>
+    <Link href={`/inventory/${bike.id}`} scroll={false}>
       <motion.div
         className={`group relative bg-gray-900 rounded-lg overflow-hidden border transition-all duration-300 cursor-pointer h-full flex flex-col ${
           bike.status === 'sold' 
