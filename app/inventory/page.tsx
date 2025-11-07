@@ -36,32 +36,6 @@ function InventoryContent() {
   const [sortBy, setSortBy] = useState("newest");
   const [showFilters, setShowFilters] = useState(false);
 
-  // Restore scroll position if coming back from detail page
-  useEffect(() => {
-    const wasNavigatingToDetail = sessionStorage.getItem('navigatingToDetail');
-    if (wasNavigatingToDetail === 'true') {
-      const savedScrollPosition = sessionStorage.getItem('/inventoryScrollPosition');
-      if (savedScrollPosition) {
-        // Wait for page to fully load before restoring scroll
-        const restoreScroll = () => {
-          window.scrollTo({
-            top: parseInt(savedScrollPosition, 10),
-            behavior: 'auto'
-          });
-          sessionStorage.removeItem('navigatingToDetail');
-          sessionStorage.removeItem('/inventoryScrollPosition');
-        };
-        
-        // Wait for page to fully load
-        requestAnimationFrame(() => {
-          setTimeout(restoreScroll, 100);
-        });
-      } else {
-        sessionStorage.removeItem('navigatingToDetail');
-      }
-    }
-  }, []);
-
   // Fetch all bikes (including sold/reserved for visibility)
   useEffect(() => {
     const fetchBikes = async () => {
