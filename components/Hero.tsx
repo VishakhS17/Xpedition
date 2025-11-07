@@ -44,12 +44,12 @@ export default function Hero() {
               EXOTIC SUPER BIKES
             </span>
           </div>
-          <h1 className="text-5xl md:text-7xl lg:text-8xl font-heading text-white mb-6 leading-tight">
+          <h1 className="text-4xl md:text-6xl lg:text-7xl font-heading text-white mb-6 leading-tight">
             WHERE DREAMS
             <br />
             <span className="text-primary-red">RIDE AGAIN</span>
           </h1>
-          <p className="text-xl md:text-2xl text-gray-300 mb-10 font-semibold max-w-xl">
+          <p className="text-xl md:text-2xl text-gray-300 mb-10 font-heading max-w-xl">
             WE ARE THE BEST WHEN IT COMES TO EXOTIC SUPER BIKES
           </p>
           <div className="flex flex-col sm:flex-row gap-4">
