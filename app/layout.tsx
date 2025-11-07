@@ -20,6 +20,11 @@ const dmSans = DM_Sans({
 export const metadata: Metadata = {
   title: "Xpedition - Exotic Super Bikes",
   description: "Where Dreams Ride Again - The Best Exotic Super Bikes",
+  icons: {
+    icon: "/images/favicon/favicon.jpg",
+    shortcut: "/images/favicon/favicon.jpg",
+    apple: "/images/favicon/favicon.jpg",
+  },
 };
 
 export default function RootLayout({
