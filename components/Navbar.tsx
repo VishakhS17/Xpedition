@@ -151,39 +151,39 @@ export default function Navbar() {
             : "opacity-0 invisible pointer-events-none"
         }`}
       >
-        <div className="container mx-auto px-4 py-8">
-          <nav className="flex flex-col space-y-6">
+        <div className="w-full h-full px-4 py-8">
+          <nav className="flex flex-col">
             <Link
               href="/inventory"
-              className="text-white hover:text-primary-red transition-all duration-300 font-heading font-semibold tracking-wider text-xl py-3 border-b border-gray-800 hover:border-primary-red/50"
+              className="text-white hover:text-primary-red transition-colors duration-300 font-heading font-semibold tracking-wider text-xl py-4 border-b border-gray-700"
               onClick={() => setIsMobileMenuOpen(false)}
             >
               INVENTORY
             </Link>
             <Link
               href="/sell-us"
-              className="text-white hover:text-primary-red transition-all duration-300 font-heading font-semibold tracking-wider text-xl py-3 border-b border-gray-800 hover:border-primary-red/50"
+              className="text-white hover:text-primary-red transition-colors duration-300 font-heading font-semibold tracking-wider text-xl py-4 border-b border-gray-700"
               onClick={() => setIsMobileMenuOpen(false)}
             >
               SELL US
             </Link>
             <Link
               href="/family"
-              className="text-white hover:text-primary-red transition-all duration-300 font-heading font-semibold tracking-wider text-xl py-3 border-b border-gray-800 hover:border-primary-red/50"
+              className="text-white hover:text-primary-red transition-colors duration-300 font-heading font-semibold tracking-wider text-xl py-4 border-b border-gray-700"
               onClick={() => setIsMobileMenuOpen(false)}
             >
               FAMILY
             </Link>
             <Link
               href="/about"
-              className="text-white hover:text-primary-red transition-all duration-300 font-heading font-semibold tracking-wider text-xl py-3 border-b border-gray-800 hover:border-primary-red/50"
+              className="text-white hover:text-primary-red transition-colors duration-300 font-heading font-semibold tracking-wider text-xl py-4 border-b border-gray-700"
               onClick={() => setIsMobileMenuOpen(false)}
             >
               ABOUT
             </Link>
             <Link
               href="/contact"
-              className="text-white hover:text-primary-red transition-all duration-300 font-heading font-semibold tracking-wider text-xl py-3 border-b border-gray-800 hover:border-primary-red/50"
+              className="text-white hover:text-primary-red transition-colors duration-300 font-heading font-semibold tracking-wider text-xl py-4 border-b border-gray-700"
               onClick={() => setIsMobileMenuOpen(false)}
             >
               CONTACT
