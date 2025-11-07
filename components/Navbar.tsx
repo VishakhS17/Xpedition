@@ -145,7 +145,7 @@ export default function Navbar() {
 
       {/* Mobile menu panel */}
       <div
-        className={`md:hidden fixed inset-0 top-16 bg-black/95 backdrop-blur-xl z-40 transition-all duration-300 ease-in-out ${
+        className={`md:hidden fixed inset-0 top-16 bg-black z-[60] transition-all duration-300 ease-in-out ${
           isMobileMenuOpen
             ? "opacity-100 visible"
             : "opacity-0 invisible pointer-events-none"

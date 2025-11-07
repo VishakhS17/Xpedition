@@ -34,4 +34,9 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
+# sensitive files
+*API*.txt
+*TOKEN*.txt
+*Key*.txt
+
 
