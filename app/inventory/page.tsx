@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, Suspense, useMemo, useRef } from "react";
+import { useState, useEffect, Suspense, useMemo } from "react";
 import { useSearchParams } from "next/navigation";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -35,60 +35,32 @@ function InventoryContent() {
   const [yearRange, setYearRange] = useState({ min: "", max: "" });
   const [sortBy, setSortBy] = useState("newest");
   const [showFilters, setShowFilters] = useState(false);
-  const [scrollRestored, setScrollRestored] = useState(false);
-  const scrollTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-  // Save scroll position before navigating away
+  // Restore scroll position if coming back from detail page
   useEffect(() => {
-    const handleBeforeUnload = () => {
-      sessionStorage.setItem('inventoryScrollPosition', window.scrollY.toString());
-    };
-
-    const handleScroll = () => {
-      // Throttle scroll position saving
-      if (typeof window !== 'undefined') {
-        sessionStorage.setItem('inventoryScrollPosition', window.scrollY.toString());
-      }
-    };
-
-    // Save scroll position periodically while scrolling
-    const throttledScroll = () => {
-      if (scrollTimeoutRef.current) {
-        clearTimeout(scrollTimeoutRef.current);
-      }
-      scrollTimeoutRef.current = setTimeout(handleScroll, 100);
-    };
-
-    window.addEventListener('beforeunload', handleBeforeUnload);
-    window.addEventListener('scroll', throttledScroll, { passive: true });
-
-    return () => {
-      window.removeEventListener('beforeunload', handleBeforeUnload);
-      window.removeEventListener('scroll', throttledScroll);
-      if (scrollTimeoutRef.current) {
-        clearTimeout(scrollTimeoutRef.current);
-      }
-    };
-  }, []);
-
-  // Restore scroll position when component mounts
-  useEffect(() => {
-    if (!scrollRestored && !loading) {
-      const savedScrollPosition = sessionStorage.getItem('inventoryScrollPosition');
+    const wasNavigatingToDetail = sessionStorage.getItem('navigatingToDetail');
+    if (wasNavigatingToDetail === 'true') {
+      const savedScrollPosition = sessionStorage.getItem('/inventoryScrollPosition');
       if (savedScrollPosition) {
-        // Use requestAnimationFrame to ensure DOM is ready
-        requestAnimationFrame(() => {
+        // Wait for page to fully load before restoring scroll
+        const restoreScroll = () => {
           window.scrollTo({
             top: parseInt(savedScrollPosition, 10),
-            behavior: 'auto' // Instant scroll, not smooth
+            behavior: 'auto'
           });
-          setScrollRestored(true);
+          sessionStorage.removeItem('navigatingToDetail');
+          sessionStorage.removeItem('/inventoryScrollPosition');
+        };
+        
+        // Wait for page to fully load
+        requestAnimationFrame(() => {
+          setTimeout(restoreScroll, 100);
         });
       } else {
-        setScrollRestored(true);
+        sessionStorage.removeItem('navigatingToDetail');
       }
     }
-  }, [loading, scrollRestored]);
+  }, []);
 
   // Fetch all bikes (including sold/reserved for visibility)
   useEffect(() => {

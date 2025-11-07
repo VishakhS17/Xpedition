@@ -20,8 +20,17 @@ interface BikeCardProps {
 }
 
 export default function BikeCard({ bike }: BikeCardProps) {
+  const handleClick = () => {
+    // Save current scroll position before navigating
+    if (typeof window !== 'undefined') {
+      const currentPath = window.location.pathname;
+      sessionStorage.setItem(`${currentPath}ScrollPosition`, window.scrollY.toString());
+      sessionStorage.setItem('navigatingToDetail', 'true');
+    }
+  };
+
   return (
-    <Link href={`/inventory/${bike.id}`} scroll={false}>
+    <Link href={`/inventory/${bike.id}`} onClick={handleClick}>
       <motion.div
         className={`group relative bg-gray-900 rounded-lg overflow-hidden border transition-all duration-300 cursor-pointer h-full flex flex-col ${
           bike.status === 'sold' 

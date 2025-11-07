@@ -1,4 +1,6 @@
-import { Suspense, lazy } from "react";
+"use client";
+
+import { Suspense, lazy, useEffect } from "react";
 import Hero from "@/components/Hero";
 import Footer from "@/components/Footer";
 
@@ -15,6 +17,32 @@ const SectionLoader = () => (
 );
 
 export default function Home() {
+  useEffect(() => {
+    // Restore scroll position if coming back from detail page
+    const wasNavigatingToDetail = sessionStorage.getItem('navigatingToDetail');
+    if (wasNavigatingToDetail === 'true') {
+      const savedScrollPosition = sessionStorage.getItem('/ScrollPosition');
+      if (savedScrollPosition) {
+        // Wait for page to fully load before restoring scroll
+        const restoreScroll = () => {
+          window.scrollTo({
+            top: parseInt(savedScrollPosition, 10),
+            behavior: 'auto'
+          });
+          sessionStorage.removeItem('navigatingToDetail');
+          sessionStorage.removeItem('/ScrollPosition');
+        };
+        
+        // Wait for lazy-loaded components to render
+        requestAnimationFrame(() => {
+          setTimeout(restoreScroll, 100);
+        });
+      } else {
+        sessionStorage.removeItem('navigatingToDetail');
+      }
+    }
+  }, []);
+
   return (
     <main>
       <Hero />
