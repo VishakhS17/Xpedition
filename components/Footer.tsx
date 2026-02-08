@@ -126,7 +126,7 @@ export default function Footer() {
                 <span className="text-xl font-heading tracking-wider">XPEDITION</span>
               </div>
               <div className="text-sm">
-                © {new Date().getFullYear()} Xpedition. All rights reserved.
+                © 2026 Xpedition. All rights reserved.
               </div>
             </div>
           </div>
@@ -144,6 +144,17 @@ export default function Footer() {
             >
               Credits
             </Link>
+          </div>
+          <div className="text-center text-sm text-gray-400 mt-4">
+            Designed by{" "}
+            <a
+              href="https://www.linkedin.com/in/vishakhs17/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-primary-red hover:text-primary-red-dark transition-colors"
+            >
+              Vishakh S
+            </a>
           </div>
         </div>
       </div>

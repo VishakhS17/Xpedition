@@ -34,7 +34,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${orbitron.variable} ${dmSans.variable}`}>
-      <body className={`${dmSans.className} antialiased`}>
+      <body className={`${dmSans.className} antialiased`} suppressHydrationWarning>
         <Preloader />
         {children}
       </body>
